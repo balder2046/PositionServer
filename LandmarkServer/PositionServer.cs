@@ -10,8 +10,9 @@ namespace LandmarkServer
 {
     class PositionClient
     {
-        public PositionClient(Socket client,Action<int> onSocketClose)
+        public PositionClient(Socket client,Action<int> onSocketClose,LocationDetector _detector)
         {
+            detector = _detector;
             clientID = clientIDCount++;
             onClientClose = onSocketClose;
             socketClient = client;
@@ -29,6 +30,8 @@ namespace LandmarkServer
 
             });
         }
+
+        private LocationDetector detector;
         Action<int> onClientClose;
         public int GetID()
         {
@@ -52,6 +55,12 @@ namespace LandmarkServer
             if (cmdID == 27)
             {
                 Close();
+                return;
+            }
+            if (cmdID == 1)
+            {
+                byte[] data = detector.GetLocationData();
+                Send(data);
                 return;
             }
             System.Console.WriteLine("client {0} receive command {1} !",clientID, cmdID);
@@ -156,7 +165,7 @@ namespace LandmarkServer
         Socket listenSocket;
         SocketAsyncEventArgs acceptEvents;
         Dictionary<int, PositionClient> dictId2Client = new Dictionary<int, PositionClient>();
-      
+        private LocationDetector locationDetector = new LocationDetector();
         public PositionServer()
         {
             acceptEvents = new SocketAsyncEventArgs();
@@ -229,7 +238,7 @@ namespace LandmarkServer
              {
                  OnReadBytes(newSocket, receiveArg);
              }*/
-            PositionClient client = new PositionClient(newSocket,OnCloseClient);
+            PositionClient client = new PositionClient(newSocket,OnCloseClient,locationDetector);
             client.StartReceive();
             dictId2Client[client.GetID()] = client;
             System.Console.WriteLine("client {0} connected now clients {1}", client.GetID(), dictId2Client.Count);

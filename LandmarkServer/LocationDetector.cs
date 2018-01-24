@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using static System.Math;
+
 namespace LandmarkServer
 
 {
@@ -23,8 +25,11 @@ namespace LandmarkServer
     }
     class LocationDetector
     {
+        private double radiusMove = 10.0;
+        private int startTick;
         public LocationDetector()
         {
+            startTick = System.Environment.TickCount;
             memStream = new MemoryStream(256);
             writer = new BinaryWriter(memStream);
         }
@@ -32,9 +37,17 @@ namespace LandmarkServer
         BinaryWriter writer;
         PoseInfo GetPoseInfo()
         {
-            return new PoseInfo();
+            PoseInfo info = new PoseInfo();
+            int nowTick = System.Environment.TickCount - startTick;
+            double nowTime = nowTick / 1000.0f;
+            double theta = nowTime * 3.14 *2.0 / 5.0;
+            info.fx = Math.Cos(theta) * radiusMove;
+            info.fz = Math.Sin(theta) * radiusMove;
+            info.dirx = Math.Cos(theta + 3.14 / 2.0);
+            info.dirz = Math.Sin(theta + 3.14 / 2.0);
+            return info;
         }
-        public byte[] getLocationData()
+        public byte[] GetLocationData()
         {
             memStream.SetLength(0);
             writer.Seek(0, SeekOrigin.Begin);

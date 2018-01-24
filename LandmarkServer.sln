@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LandmarkServer", "LandmarkServer\LandmarkServer.csproj", "{0C1A38A4-37B5-4E08-B433-14391D07BFCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoClient", "DemoClient\DemoClient.csproj", "{9851F050-5737-45C7-B09F-8EADC3BADDD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0C1A38A4-37B5-4E08-B433-14391D07BFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C1A38A4-37B5-4E08-B433-14391D07BFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C1A38A4-37B5-4E08-B433-14391D07BFCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9851F050-5737-45C7-B09F-8EADC3BADDD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9851F050-5737-45C7-B09F-8EADC3BADDD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9851F050-5737-45C7-B09F-8EADC3BADDD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9851F050-5737-45C7-B09F-8EADC3BADDD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
