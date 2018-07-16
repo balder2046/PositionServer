@@ -1,0 +1,49 @@
+LandmarkServer.exe 测试数据服务端 10001端口监听 ,对应考试车上的定位模块
+DemoClient.exe 测试程序接收端demo ,对应考试中心的判定模块
+
+向服务端发送命令号(byte类型)
+
+命令
+1 : 返回相对于考场区域的姿态 
+考试区域号
+areaid: int
+
+位置 相对于考试区域的原点
+x: double
+y: double 
+
+方向向量
+fx: double
+fy: double
+
+
+
+命令
+2 : 返回当前在整个考场的姿态 
+考试区域号
+areaid: int
+
+位置 相对于整个考场的位置
+x: double
+y: double 
+
+方向向量
+fx: double
+fy: double
+
+
+// 接收代码示例 ,通过命令2 来得到绝对相对于考场的绝对坐标
+ private void timeForQueryPose(object sender, EventArgs e)
+        {
+            // cmd 2 位查询命令
+            m_cmdWriter.Write((byte)2);
+            // 先得到区域ID,用于标志 考场的类型,比如是倒车入库,还是侧方位停车 ....
+            int areaid = m_datareader.ReadInt32();
+            // 得到位置
+            double x = m_datareader.ReadDouble();
+            double y = m_datareader.ReadDouble();
+            // 得到方位
+            double fx = m_datareader.ReadDouble();
+            double fy = m_datareader.ReadDouble();
+            labelPose.Text = String.Format("areaid {0} ,({1},{2}) dir ({3},{4})", areaid, x, y, fx, fy);
+        }

@@ -63,6 +63,12 @@ namespace LandmarkServer
                 Send(data);
                 return;
             }
+            if (cmdID == 2)
+            {
+                byte[] data = detector.GetGlobalLocationData();
+                Send(data);
+                return;
+            }
             System.Console.WriteLine("client {0} receive command {1} !",clientID, cmdID);
             String formatText = String.Format("{0} ({1},{2})", cmdID, cmdID * .1f, cmdID * 0.2f);
             Send(UTF8Encoding.UTF8.GetBytes(formatText));

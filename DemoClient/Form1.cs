@@ -27,8 +27,9 @@ namespace DemoClient
         private BinaryReader m_datareader;
         private void timeForQueryPose(object sender, EventArgs e)
         {
-            // cmd 1 位查询命令
-            m_cmdWriter.Write((byte)1);
+            // cmd 2 位查询命令 
+            // cmd 2 查询全局考场坐标和方位
+            m_cmdWriter.Write((byte)2);
             // 先得到区域ID,用于标志 考场的类型,比如是倒车入库,还是侧方位停车 ....
             int areaid = m_datareader.ReadInt32();
             // 得到位置

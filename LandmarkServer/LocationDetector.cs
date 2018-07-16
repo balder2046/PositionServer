@@ -56,5 +56,19 @@ namespace LandmarkServer
             info.Write(writer);
             return memStream.ToArray();
         }
+        PoseInfo TransformPositionByAreaId(int areaid,PoseInfo infoL)
+        {
+            return infoL;
+        }
+        public byte[] GetGlobalLocationData()
+        {
+            memStream.SetLength(0);
+            writer.Seek(0, SeekOrigin.Begin);
+            writer.Write(0);
+            PoseInfo info = GetPoseInfo();
+            info = TransformPositionByAreaId(0, info);
+            info.Write(writer);
+            return memStream.ToArray();
+        }
     }
 }
